@@ -3,12 +3,12 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        $username = isset($_POST['username']) ? trim($_POST['username']) : null;
+        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
         $password = isset($_POST['password']) ? $_POST['password'] : null;
         $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : null;
 
-        if(empty($username) || empty($password) || empty($confirm_password)){
-            echo "<script>alert('Please enter both username, password and confirm password.'); window.location.href='../register.php';</script>";
+        if(empty($email) || empty($password) || empty($confirm_password)){
+            echo "<script>alert('Please enter both email, password and confirm password.'); window.location.href='../register.php';</script>";
             exit;
         }
 
@@ -17,17 +17,17 @@
             exit;
         }
 
-        $stmt = $conn->prepare("SELECT * FROM user WHERE username = :username");
-        $stmt->execute([":username" => $username]);
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute([":email" => $email]);
         
         if($stmt->rowCount() > 0){
-            echo "<script>alert('Username already exist.'); window.location.href='../register.php';</script>";
+            echo "<script>alert('email already exist.'); window.location.href='../register.php';</script>";
             exit;
         }
 
-        $stmt = $conn->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
+        $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
         $execute = $stmt->execute([
-            ":username" => $username,
+            ":email" => $email,
             ":password" => $password
         ]);
 
@@ -39,5 +39,8 @@
             exit;
         }
 
+    }else{
+        header("Location: ../register.php");
+        exit;
     }
 ?>

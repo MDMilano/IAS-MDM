@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(isset($_SESSION['email'])){
+    header("Location: home.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +18,8 @@
     <h1>Sign Up</h1>
 
     <form action="auth/signup.php" method="post">
-        <label for="username">Username</label><br>
-        <input type="text" name="username" placeholder="Enter username" ><br><br>
+        <label for="email">Email</label><br>
+        <input type="text" name="email" placeholder="Enter email" ><br><br>
         <label for="password">Password</label><br>
         <input type="password" name="password" placeholder="Enter password" ><br><br>
         <label for="confirm_password">Confirm Password</label><br>

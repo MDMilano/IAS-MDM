@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(isset($_SESSION['email'])){
+    header("Location: home.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +18,11 @@
     <h1>Login</h1>
 
     <form action="auth/login.php" method="post">
-        <label for="username">Username</label><br>
-        <input type="text" name="username" placeholder="Enter username" required><br><br>
+        <label for="email">Email</label><br>
+        <input type="text" name="email" placeholder="Enter email" required><br><br>
         <label for="password">Password</label><br>
         <input type="password" name="password" placeholder="Enter password" required><br><br>
-        <input type="submit" value="Login"><br>
+        <button type="submit" name="btn-login">Login</button><br>
     </form>
 
     <p>Don't have an account? <a href="register.php">Sign Up</a></p>
